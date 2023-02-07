@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/app/categories/accessories_category.dart';
+import 'package:shop_app/app/categories/bags_category.dart';
+import 'package:shop_app/app/categories/beauty_category.dart';
+import 'package:shop_app/app/categories/electronics_category.dart';
+import 'package:shop_app/app/categories/home_and_garden_category.dart';
+import 'package:shop_app/app/categories/kids_category.dart';
+import 'package:shop_app/app/categories/men_category.dart';
+import 'package:shop_app/app/categories/shoes_category.dart';
+import 'package:shop_app/app/categories/women_category.dart';
 import 'package:shop_app/app/constants/colors/app_colors.dart';
 import 'package:shop_app/app/presentation/widgets/fake_search_widget.dart';
 
@@ -86,16 +95,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
       child: PageView(
         controller: _pageController,
         scrollDirection: Axis.vertical,
-        children: const [
-          Center(child: Text('men category')),
-          Center(child: Text('women category')),
-          Center(child: Text('shoes category')),
-          Center(child: Text('bags category')),
-          Center(child: Text('electronics category')),
-          Center(child: Text('accessories category')),
-          Center(child: Text('home & garden category')),
-          Center(child: Text('kids category')),
-          Center(child: Text('beauty category')),
+        children: [
+          MenCategory(),
+          WomenCategory(),
+          ShoesCategory(),
+          BagsCategory(),
+          ElectronicsCategory(),
+          AccessoriesCategory(),
+          HomeAndGarden(),
+          KidsCategory(),
+          BeautyCategory(),
         ],
       ),
     );
