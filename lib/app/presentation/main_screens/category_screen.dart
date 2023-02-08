@@ -39,7 +39,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.white,
-        title: FakeSearchWidget(),
+        title: const FakeSearchWidget(),
       ),
       body: Stack(
         children: [

@@ -19,7 +19,7 @@ class CategoryHeaderLabel extends StatelessWidget {
       ),
       child: Text(
         headerLabel,
-        style: AppTextStyles.blackBold24,
+        style: AppTextStyles.black16Bold,
       ),
     );
   }
