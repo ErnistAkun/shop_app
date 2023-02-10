@@ -5,7 +5,9 @@ import 'package:shop_app/app/constants/text_styles/app_text_styles.dart';
 class SliderWidget extends StatelessWidget {
   const SliderWidget({
     Key? key,
+    required this.mainSliderText,
   }) : super(key: key);
+  final String mainSliderText;
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +25,22 @@ class SliderWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                mainSliderText == 'beauty'
+                    ? const Text('')
+                    : Text(
+                        '<<',
+                        style: AppTextStyles.black16Bold,
+                      ),
                 Text(
-                  '<<',
+                  mainSliderText.toUpperCase(),
                   style: AppTextStyles.black16Bold,
                 ),
-                Text(
-                  'men'.toUpperCase(),
-                  style: AppTextStyles.black16Bold,
-                ),
-                Text(
-                  '>>',
-                  style: AppTextStyles.black16Bold,
-                ),
+                mainSliderText == 'men'
+                    ? const Text('')
+                    : Text(
+                        '>>',
+                        style: AppTextStyles.black16Bold,
+                      ),
               ],
             ),
           ),

@@ -8,7 +8,7 @@ import 'package:shop_app/app/presentation/widgets/category_widgets/sub_category_
 import 'package:shop_app/app/utilities/categ_list.dart';
 
 class MenCategory extends StatelessWidget {
-  MenCategory({Key? key}) : super(key: key);
+  const MenCategory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +37,13 @@ class MenCategory extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
+        const Positioned(
           bottom: 0,
           right: 0,
-          child: SliderWidget(),
-        )
+          child: SliderWidget(
+            mainSliderText: 'Men',
+          ),
+        ),
       ],
     );
   }

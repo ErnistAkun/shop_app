@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/app/constants/text_styles/app_text_styles.dart';
 import 'package:shop_app/app/presentation/minor_screens/sub_category_produts_screen.dart';
 import 'package:shop_app/app/presentation/widgets/category_widgets/category_header_lable.dart';
+import 'package:shop_app/app/presentation/widgets/category_widgets/slider_widget.dart';
 import 'package:shop_app/app/presentation/widgets/category_widgets/sub_category_model.dart';
 import 'package:shop_app/app/utilities/categ_list.dart';
 
@@ -33,6 +34,13 @@ class BagsCategory extends StatelessWidget {
                     })),
               ),
             ],
+          ),
+        ),
+        const Positioned(
+          bottom: 0,
+          right: 0,
+          child: SliderWidget(
+            mainSliderText: 'bags',
           ),
         ),
       ],
