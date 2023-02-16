@@ -18,6 +18,7 @@ class SliderWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 40),
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
             color: AppColors.grey.withOpacity(0.5),
           ),
           child: RotatedBox(
