@@ -8,6 +8,10 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
     letterSpacing: 1.5,
   );
+  static TextStyle black30 = const TextStyle(
+    fontSize: 30,
+    color: AppColors.black,
+  );
   static TextStyle black24Bold = const TextStyle(
     fontSize: 24,
     color: AppColors.black,
@@ -24,14 +28,35 @@ class AppTextStyles {
     color: AppColors.black54,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle black24w600 = const TextStyle(
+    fontSize: 24,
+    color: AppColors.black,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle black28Acme = const TextStyle(
+    fontSize: 28,
+    color: AppColors.black,
+    fontFamily: 'Acme',
+    letterSpacing: 1.5,
+  );
+  static TextStyle black18 = const TextStyle(
+    fontSize: 18,
+    color: AppColors.black,
+  );
   static TextStyle grey20Bold = const TextStyle(
     fontSize: 20,
     color: AppColors.grey,
     fontWeight: FontWeight.bold,
   );
-  static TextStyle black24w600 = const TextStyle(
-    fontSize: 24,
-    color: AppColors.black,
-    fontWeight: FontWeight.w600,
+  static TextStyle red20Bold = const TextStyle(
+    fontSize: 20,
+    color: AppColors.red,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle white18 = const TextStyle(
+    fontSize: 18,
+    color: AppColors.white,
   );
 }

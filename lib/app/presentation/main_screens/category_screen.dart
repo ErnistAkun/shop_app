@@ -84,7 +84,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               );
             },
             child: Container(
-              height: 100,
+              height: 75,
               color: items[index].isSelected == true
                   ? AppColors.white
                   : AppColors.greyShade300,

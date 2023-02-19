@@ -13,5 +13,6 @@ class AppColors {
   static const Color red = Colors.red;
   static const Color green = Colors.green;
   static const Color cyan = Colors.cyan;
+  static const Color lightBlueAccent = Colors.lightBlueAccent;
   static const Color purple = Colors.purple;
 }
