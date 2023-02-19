@@ -41,6 +41,26 @@ class AppTextStyles {
     fontFamily: 'Acme',
     letterSpacing: 1.5,
   );
+  static TextStyle white45AcmeBold = const TextStyle(
+    fontSize: 45,
+    color: AppColors.white,
+    fontFamily: 'Acme',
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle white = const TextStyle(
+    color: AppColors.white,
+  );
+  static TextStyle lightBlueAccent45BoldAcme = const TextStyle(
+    fontSize: 45,
+    color: AppColors.lightBlueAccent,
+    fontFamily: 'Acme',
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle yellow26w600 = const TextStyle(
+    fontSize: 26,
+    color: AppColors.yellow,
+    fontWeight: FontWeight.w600,
+  );
   static TextStyle black18 = const TextStyle(
     fontSize: 18,
     color: AppColors.black,
@@ -57,6 +77,10 @@ class AppTextStyles {
   );
   static TextStyle white18 = const TextStyle(
     fontSize: 18,
+    color: AppColors.white,
+  );
+  static TextStyle white30 = const TextStyle(
+    fontSize: 30,
     color: AppColors.white,
   );
 }

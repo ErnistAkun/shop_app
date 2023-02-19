@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/app/presentation/main_screens/customer_screen.dart';
+import 'package:shop_app/app/presentation/main_screens/welcome_screen.dart';
 
 void main() {
   runApp(
@@ -17,6 +18,7 @@ class ShopApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      // home: const WelcomeScreen(),
       home: const CustomerScreen(),
     );
   }
