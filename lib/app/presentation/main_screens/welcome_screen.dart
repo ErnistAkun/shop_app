@@ -51,6 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AnimatedTextKit(
                 repeatForever: true,
@@ -77,7 +78,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               DefaultTextStyle(
                 style: AppTextStyles.lightBlueAccent45BoldAcme,
                 child: AnimatedTextKit(
-                  // repeatForever: true,
+                  repeatForever: true,
                   animatedTexts: [
                     RotateAnimatedText('Buy'),
                     RotateAnimatedText('Shop'),
@@ -85,24 +86,57 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   ],
                 ),
               ),
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        decoration: AppDecoration.containerTextDecorationLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            'Suppliers only',
+                            style: AppTextStyles.yellow26w600,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        decoration: AppDecoration.containerTextDecorationLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            AnimatodLogoWidget(controller: _controller),
+                            YellowButtonWidget(
+                              onTap: () {},
+                              label: 'Log In',
+                              width: 0.25,
+                            ),
+                            YellowButtonWidget(
+                              onTap: () {},
+                              label: 'Sign Up',
+                              width: 0.25,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
                 children: [
                   Container(
-                    decoration: AppDecoration.containerTextDecorationLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text(
-                        'Suppliers only',
-                        style: AppTextStyles.yellow26w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: AppDecoration.containerTextDecorationLeft,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: AppDecoration.containerTextDecorationRight,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        AnimatodLogoWidget(controller: _controller),
                         YellowButtonWidget(
                           onTap: () {},
                           label: 'Log In',
@@ -113,29 +147,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           label: 'Sign Up',
                           width: 0.25,
                         ),
+                        AnimatodLogoWidget(controller: _controller),
                       ],
                     ),
                   ),
                 ],
-              ),
-              Container(
-                decoration: AppDecoration.containerTextDecorationRight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    YellowButtonWidget(
-                      onTap: () {},
-                      label: 'Log In',
-                      width: 0.25,
-                    ),
-                    YellowButtonWidget(
-                      onTap: () {},
-                      label: 'Sign Up',
-                      width: 0.25,
-                    ),
-                    AnimatodLogoWidget(controller: _controller),
-                  ],
-                ),
               ),
               Container(
                 color: AppColors.white38,

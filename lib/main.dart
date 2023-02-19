@@ -18,8 +18,8 @@ class ShopApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: const WelcomeScreen(),
-      home: const CustomerScreen(),
+      home: const WelcomeScreen(),
+      // home: const CustomerScreen(),
     );
   }
 }
