@@ -143,7 +143,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           width: 0.25,
                         ),
                         YellowButtonWidget(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/customer_register',
+                            );
+                          },
                           label: 'Sign Up',
                           width: 0.25,
                         ),
