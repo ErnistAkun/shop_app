@@ -3,8 +3,8 @@ import 'package:shop_app/app/constants/colors/app_colors.dart';
 import 'package:shop_app/app/presentation/widgets/app_bar_widget/app_bar_back_button_widget.dart';
 import 'package:shop_app/app/presentation/widgets/app_bar_widget/app_bar_title_widget.dart';
 
-class Manage extends StatelessWidget {
-  const Manage({Key? key}) : super(key: key);
+class ManageProducts extends StatelessWidget {
+  const ManageProducts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

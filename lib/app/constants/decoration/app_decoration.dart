@@ -24,6 +24,28 @@ class AppDecoration {
     ),
     color: AppColors.white38,
   );
+  // 'Pick image frome gallery'
+  static const Decoration purple15BottomDecoration = BoxDecoration(
+    color: AppColors.purple,
+    borderRadius: BorderRadius.only(
+      bottomLeft: Radius.circular(15),
+      bottomRight: Radius.circular(15),
+    ),
+  );
+  // 'Pick image frome camera'
+  static const Decoration purple15TopDecoration = BoxDecoration(
+    color: AppColors.purple,
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(15),
+      topRight: Radius.circular(15),
+    ),
+  );
+  // Sign Up button
+  static Decoration purple20Decoration = BoxDecoration(
+    color: AppColors.purple,
+    borderRadius: BorderRadius.circular(20),
+  );
+
   static Decoration yellowContainerDecoration = BoxDecoration(
     borderRadius: BorderRadius.circular(25),
     color: AppColors.yellow,

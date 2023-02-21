@@ -50,6 +50,11 @@ class AppTextStyles {
     color: AppColors.black,
     fontWeight: FontWeight.bold,
   );
+  static TextStyle black16Italic = const TextStyle(
+    fontSize: 16,
+    color: AppColors.black,
+    fontStyle: FontStyle.italic,
+  );
   static TextStyle white45AcmeBold = const TextStyle(
     fontSize: 45,
     color: AppColors.white,
@@ -95,5 +100,14 @@ class AppTextStyles {
   static TextStyle white30 = const TextStyle(
     fontSize: 30,
     color: AppColors.white,
+  );
+  static TextStyle white20 = const TextStyle(
+    fontSize: 20,
+    color: AppColors.white,
+  );
+  static TextStyle purple20Bold = const TextStyle(
+    fontSize: 20,
+    color: AppColors.purple,
+    fontWeight: FontWeight.bold,
   );
 }
