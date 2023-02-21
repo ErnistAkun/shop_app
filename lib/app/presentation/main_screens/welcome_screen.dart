@@ -113,7 +113,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           children: [
                             AnimatodLogoWidget(controller: _controller),
                             YellowButtonWidget(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  '/supplier_home_screen',
+                                );
+                              },
                               label: 'Log In',
                               width: 0.25,
                             ),
@@ -138,7 +143,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         YellowButtonWidget(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/customer_screen',
+                            );
+                          },
                           label: 'Log In',
                           width: 0.25,
                         ),

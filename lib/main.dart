@@ -21,7 +21,7 @@ class ShopApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const CustomerRegisterScreen(),
-      // initialRoute: '/supplier_home_screen',
+      // initialRoute: '/welcome_screen',
       routes: {
         '/welcome_screen': (context) => const WelcomeScreen(),
         '/customer_screen': (context) => const CustomerScreen(),
