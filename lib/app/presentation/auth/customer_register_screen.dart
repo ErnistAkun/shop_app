@@ -1,6 +1,9 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shop_app/app/constants/colors/app_colors.dart';
 import 'package:shop_app/app/constants/decoration/app_decoration.dart';
 import 'package:shop_app/app/constants/text_styles/app_text_styles.dart';
@@ -16,9 +19,48 @@ class CustomerRegisterScreen extends StatefulWidget {
 }
 
 class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
-//   TextEditingController _nameController = TextEditingController();
-// TextEditingController _emailController = TextEditingController();
-// TextEditingController _passwordController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  XFile? _imageFile;
+  dynamic _pickedImageError;
+  void _pickImageFromCamera() async {
+    try {
+      final _pickedImage = await _picker.pickImage(
+        imageQuality: 95,
+        maxHeight: 300,
+        maxWidth: 300,
+        source: ImageSource.camera,
+      );
+
+      setState(() {
+        _imageFile = _pickedImage;
+      });
+    } catch (e) {
+      setState(() {
+        _pickedImageError = e;
+      });
+      log(_pickedImageError);
+    }
+  }
+
+  void _pickImageFromGallery() async {
+    try {
+      final _pickedImage = await _picker.pickImage(
+        imageQuality: 95,
+        maxHeight: 300,
+        maxWidth: 300,
+        source: ImageSource.gallery,
+      );
+      setState(() {
+        _imageFile = _pickedImage;
+      });
+    } catch (e) {
+      setState(() {
+        _pickedImageError = e;
+      });
+      log(_pickedImageError);
+    }
+  }
+
   late String _name;
   late String _email;
   late String _password;
@@ -33,7 +75,7 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
         duration: Duration(seconds: 3),
         backgroundColor: AppColors.yellow,
         content: Text(
-          'Pleas fill your fields',
+          'Not valid',
           style: TextStyle(
             fontSize: 18,
             color: AppColors.black,
@@ -86,12 +128,17 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                     Row(
                       children: [
                         // CircleAvatar purpleAccent
-                        const Padding(
-                          padding: EdgeInsets.symmetric(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
                             vertical: 30,
                             horizontal: 40,
                           ),
                           child: CircleAvatar(
+                            backgroundImage: _imageFile == null
+                                ? null
+                                : FileImage(
+                                    File(_imageFile!.path),
+                                  ),
                             radius: 60,
                             backgroundColor: AppColors.purpleAccent,
                           ),
@@ -103,6 +150,7 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                               decoration: AppDecoration.purple15TopDecoration,
                               child: IconButton(
                                 onPressed: () {
+                                  _pickImageFromCamera();
                                   log('Pick image frome camera');
                                 },
                                 icon: const Icon(
@@ -114,16 +162,17 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                             const SizedBox(
                               height: 6,
                             ),
-                            // bottom camera icon
+                            // bottom galery icon
                             Container(
                               decoration:
                                   AppDecoration.purple15BottomDecoration,
                               child: IconButton(
                                 onPressed: () {
+                                  _pickImageFromGallery();
                                   log('Pick image frome gallery');
                                 },
                                 icon: const Icon(
-                                  Icons.camera_alt,
+                                  Icons.photo,
                                   color: AppColors.white,
                                 ),
                               ),
@@ -222,7 +271,21 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                       height: 55.0,
                     ),
                     AuthMainButtonWidget(
-                      onTap: () {
+                      onTap: () async {
+                        try {
+                          final userCredential =
+                              await FirebaseAuth.instance.signInAnonymously();
+                          print("Signed in with temporary account.");
+                        } on FirebaseAuthException catch (e) {
+                          switch (e.code) {
+                            case "operation-not-allowed":
+                              print(
+                                  "Anonymous auth hasn't been enabled for this project.");
+                              break;
+                            default:
+                              print("Unknown error.");
+                          }
+                        }
                         if (_formKey.currentState!.validate()) {
                           log('valid');
                           log(_name);
