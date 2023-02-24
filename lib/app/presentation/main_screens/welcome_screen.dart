@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/app/constants/colors/app_colors.dart';
 import 'package:shop_app/app/constants/decoration/app_decoration.dart';
@@ -189,7 +190,26 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       ),
                     ),
                     GoogleFacebooLoginWidget(
-                      onPressed: () {},
+                      onPressed: () async {
+                        try {
+                          final userCredential =
+                              await FirebaseAuth.instance.signInAnonymously();
+                          print("Signed in with temporary account.");
+                        } on FirebaseAuthException catch (e) {
+                          switch (e.code) {
+                            case "operation-not-allowed":
+                              print(
+                                  "Anonymous auth hasn't been enabled for this project.");
+                              break;
+                            default:
+                              print("Unknown error.");
+                          }
+                        }
+                        Navigator.pushReplacementNamed(
+                          context,
+                          '/customer_screen',
+                        );
+                      },
                       label: 'Guest',
                       child: const Icon(
                         Icons.person,

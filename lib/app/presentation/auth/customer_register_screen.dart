@@ -9,6 +9,7 @@ import 'package:shop_app/app/constants/decoration/app_decoration.dart';
 import 'package:shop_app/app/constants/text_styles/app_text_styles.dart';
 import 'package:shop_app/app/presentation/auth/auth_widget/auth_main_button_widget.dart';
 import 'package:shop_app/app/presentation/auth/auth_widget/have_accout_widget.dart';
+import 'package:shop_app/app/presentation/auth/auth_widget/snack_bar_widget.dart/my_message_handler.dart';
 import 'package:shop_app/app/presentation/widgets/auth_widgets/text_form_field_widget.dart';
 
 class CustomerRegisterScreen extends StatefulWidget {
@@ -68,22 +69,48 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
-
-  void showSnackBar() {
-    _scaffoldKey.currentState!.showSnackBar(
-      const SnackBar(
-        duration: Duration(seconds: 3),
-        backgroundColor: AppColors.yellow,
-        content: Text(
-          'Not valid',
-          style: TextStyle(
-            fontSize: 18,
-            color: AppColors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
+  void signUp() async {
+    if (_formKey.currentState!.validate()) {
+      if (_imageFile != null) {
+        try {
+          final credential =
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _email,
+            password: _password,
+          );
+          // Navigator.pushReplacementNamed(context, '/customer_screen');
+          _formKey.currentState!.reset();
+          setState(
+            () {
+              _imageFile = null;
+            },
+          );
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'weak-password') {
+            MyMessageHandler.showSnackBar(
+                _scaffoldKey, 'The password provided is too weak.');
+            log('The password provided is too weak.');
+          } else if (e.code == 'email-already-in-use') {
+            MyMessageHandler.showSnackBar(
+                _scaffoldKey, 'The account already exists for that email.');
+            log('The account already exists for that email.');
+          }
+        } catch (e) {
+          log("$e");
+        }
+      } else {
+        MyMessageHandler.showSnackBar(
+          _scaffoldKey,
+          'Please pick an image first',
+        );
+      }
+    } else {
+      log('not valid');
+      MyMessageHandler.showSnackBar(
+        _scaffoldKey,
+        'Not valid',
+      );
+    }
   }
 
   @override
@@ -271,32 +298,10 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                       height: 55.0,
                     ),
                     AuthMainButtonWidget(
-                      onTap: () async {
-                        try {
-                          final userCredential =
-                              await FirebaseAuth.instance.signInAnonymously();
-                          print("Signed in with temporary account.");
-                        } on FirebaseAuthException catch (e) {
-                          switch (e.code) {
-                            case "operation-not-allowed":
-                              print(
-                                  "Anonymous auth hasn't been enabled for this project.");
-                              break;
-                            default:
-                              print("Unknown error.");
-                          }
-                        }
-                        if (_formKey.currentState!.validate()) {
-                          log('valid');
-                          log(_name);
-                          log(_email);
-                          log(_password);
-                        } else {
-                          log('not valid');
-                          showSnackBar();
-                        }
-                      },
                       mainButtonLabel: 'Sign Up',
+                      onTap: () {
+                        signUp();
+                      },
                     ),
                   ],
                 ),

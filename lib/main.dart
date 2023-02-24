@@ -5,9 +5,9 @@ import 'package:shop_app/app/presentation/main_screens/customer_screen.dart';
 import 'package:shop_app/app/presentation/main_screens/supplier_home_screen.dart';
 import 'package:shop_app/app/presentation/main_screens/welcome_screen.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(
     const ShopApp(),
   );
@@ -23,8 +23,8 @@ class ShopApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CustomerRegisterScreen(),
-      // initialRoute: '/welcome_screen',
+      // home: const CustomerRegisterScreen(),
+      initialRoute: '/welcome_screen',
       routes: {
         '/welcome_screen': (context) => const WelcomeScreen(),
         '/customer_screen': (context) => const CustomerScreen(),
