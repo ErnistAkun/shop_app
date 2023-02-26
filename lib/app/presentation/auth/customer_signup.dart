@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shop_app/app/constants/colors/app_colors.dart';
@@ -12,15 +14,27 @@ import 'package:shop_app/app/presentation/auth/auth_widget/have_accout_widget.da
 import 'package:shop_app/app/presentation/auth/auth_widget/snack_bar_widget.dart/my_message_handler.dart';
 import 'package:shop_app/app/presentation/widgets/auth_widgets/text_form_field_widget.dart';
 
-class CustomerRegisterScreen extends StatefulWidget {
-  const CustomerRegisterScreen({Key? key}) : super(key: key);
+class CustomerSignUp extends StatefulWidget {
+  const CustomerSignUp({Key? key}) : super(key: key);
 
   @override
-  _CustomerRegisterScreenState createState() => _CustomerRegisterScreenState();
+  _CustomerSignUpState createState() => _CustomerSignUpState();
 }
 
-class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
+class _CustomerSignUpState extends State<CustomerSignUp> {
   final ImagePicker _picker = ImagePicker();
+  late String _name;
+  late String _email;
+  late String _password;
+  late String _uid;
+  late String _profileImage;
+
+  bool processing = false;
+
+  bool passwordVisible = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
+      GlobalKey<ScaffoldMessengerState>();
   XFile? _imageFile;
   dynamic _pickedImageError;
   void _pickImageFromCamera() async {
@@ -62,14 +76,12 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
     }
   }
 
-  late String _name;
-  late String _email;
-  late String _password;
-  bool passwordVisible = false;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
-      GlobalKey<ScaffoldMessengerState>();
+  CollectionReference customers =
+      FirebaseFirestore.instance.collection('customers');
   void signUp() async {
+    setState(() {
+      processing = true;
+    });
     if (_formKey.currentState!.validate()) {
       if (_imageFile != null) {
         try {
@@ -78,7 +90,23 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
             email: _email,
             password: _password,
           );
-          // Navigator.pushReplacementNamed(context, '/customer_screen');
+
+          firebase_storage.Reference ref = firebase_storage
+              .FirebaseStorage.instance
+              .ref('cust-images/$_email.jpg');
+          await ref.putFile(File(_imageFile!.path));
+          _profileImage = await ref.getDownloadURL();
+          _uid = FirebaseAuth.instance.currentUser!.uid;
+          customers.doc(_uid).set({
+            'name': _name,
+            'email': _email,
+            'phone': '',
+            'address': '',
+            'profileImage': _profileImage,
+            'cid': _uid,
+          });
+
+          Navigator.pushReplacementNamed(context, '/customer_screen');
           _formKey.currentState!.reset();
           setState(
             () {
@@ -87,10 +115,16 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
           );
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
+            setState(() {
+              processing = false;
+            });
             MyMessageHandler.showSnackBar(
                 _scaffoldKey, 'The password provided is too weak.');
             log('The password provided is too weak.');
           } else if (e.code == 'email-already-in-use') {
+            setState(() {
+              processing = false;
+            });
             MyMessageHandler.showSnackBar(
                 _scaffoldKey, 'The account already exists for that email.');
             log('The account already exists for that email.');
@@ -105,6 +139,10 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
         );
       }
     } else {
+      ///
+      setState(() {
+        processing = false;
+      });
       log('not valid');
       MyMessageHandler.showSnackBar(
         _scaffoldKey,
@@ -297,12 +335,18 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                     const SizedBox(
                       height: 55.0,
                     ),
-                    AuthMainButtonWidget(
-                      mainButtonLabel: 'Sign Up',
-                      onTap: () {
-                        signUp();
-                      },
-                    ),
+                    processing == true
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.purple,
+                            ),
+                          )
+                        : AuthMainButtonWidget(
+                            mainButtonLabel: 'Sign Up',
+                            onTap: () {
+                              signUp();
+                            },
+                          ),
                   ],
                 ),
               ),
