@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/app/constants/colors/app_colors.dart';
 import 'package:shop_app/app/constants/text_styles/app_text_styles.dart';
@@ -257,9 +258,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                   const YellowDividerWidget(),
                                   RepeatedListTileWidget(
-                                    onPressed: () {},
                                     icon: Icons.logout,
                                     title: 'Log Out',
+                                    onPressed: () async {
+                                      await FirebaseAuth.instance.signOut();
+                                      Navigator.pushReplacementNamed(
+                                          context, '/welcome_screen');
+                                    },
                                   ),
                                 ],
                               ),

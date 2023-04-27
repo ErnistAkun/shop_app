@@ -32,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 3),
     );
     _controller.repeat();
     super.initState();
@@ -147,7 +147,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           onTap: () {
                             Navigator.pushReplacementNamed(
                               context,
-                              '/customer_screen',
+                              '/customer_login',
                             );
                           },
                           label: 'Log In',
@@ -157,7 +157,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           onTap: () {
                             Navigator.pushReplacementNamed(
                               context,
-                              '/customer_register',
+                              '/customer_sign_up',
                             );
                           },
                           label: 'Sign Up',

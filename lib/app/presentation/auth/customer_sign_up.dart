@@ -31,7 +31,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
 
   bool processing = false;
 
-  bool passwordVisible = false;
+  bool passwordVisible = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
@@ -106,7 +106,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
             'cid': _uid,
           });
 
-          Navigator.pushReplacementNamed(context, '/customer_screen');
+          Navigator.pushReplacementNamed(context, '/customer_login');
           _formKey.currentState!.reset();
           setState(
             () {
@@ -326,8 +326,11 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                           ),
                           HaveAccountWidget(
                             haveAccount: 'already have account?',
-                            onTap: () {},
                             actionLabel: 'Log In',
+                            onTap: () {
+                              Navigator.pushReplacementNamed(
+                                  context, '/customer_login');
+                            },
                           ),
                         ],
                       ),
