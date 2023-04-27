@@ -56,7 +56,7 @@ class _CustomerLoginState extends State<CustomerLogin> {
       setState(() {
         processing = false;
       });
-      log('valid');
+
       MyMessageHandler.showSnackBar(_scaffoldKey, 'Not valid');
     }
   }
